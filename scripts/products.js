@@ -54,7 +54,7 @@ function createProductCard(product) {
   cardContainer.style.width = "18rem";
 
   const cardBody = document.createElement("div");
-  cardBody.className = "card-body";
+  cardBody.className = "card-body border-4 rounded border-bottom";
 
   const cardTitle = document.createElement("h5");
   cardTitle.className = "card-title";
@@ -70,8 +70,8 @@ function createProductCard(product) {
 
   const seeDetailsButton = document.createElement("a");
   seeDetailsButton.href = `http://127.0.0.1:5500/product-details-page.html?productId=${product.productId}`;
-  seeDetailsButton.textContent = "See Details";
-  seeDetailsButton.className = "btn btn-primary";
+  seeDetailsButton.textContent = "Details";
+  seeDetailsButton.className = "btn btn-success";
 
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSubtitle);
