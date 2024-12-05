@@ -13,7 +13,24 @@
   </head>
   <body>
     <header></header>
-    <main></main>
+
+    <main class="container">
+        <label for="shopByTypeSelect">Shop By</label>
+        <select id="shopByTypeSelect" class="form-select">
+        <option value="">Select...</option>
+        <option value="category">Search By Category</option>
+        <option value="all">View All</option>
+        </select>
+
+        <label class="form-label" for="shopByTypeSelect">Category</label>
+        <select id="categorySelect" class="form-select" onchange="">
+        <option value="">Select...</option>
+
+        </select>
+         <div id="productsList" class="d-flex flex-wrap gap-2"></div>
+    </main>
+
     <footer></footer>
+    <script src=""></script>
   </body>
 </html>
