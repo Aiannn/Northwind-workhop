@@ -16,7 +16,6 @@ async function getCategories() {
     console.log("error", error.message);
   }
 }
-getCategories();
 
 function populateCategorySelect(categories) {
   for (const category of categories) {
@@ -33,14 +32,14 @@ async function getProducts() {
     let response = await fetch(url);
     let products = await response.json();
     console.log("products", products);
-    displayCards(products);
+    return products;
   } catch (error) {
     console.log("error", error.message);
   }
 }
-getProducts();
 
 function displayCards(products) {
+  productsList.innerHTML = "";
   for (const product of products) {
     createProductCard(product);
   }
@@ -66,10 +65,10 @@ function createProductCard(product) {
   cardText.className = "card-text";
   cardText.textContent = product.supplier;
 
-const seeDetailsButton = document.createElement("a");
-seeDetailsButton.href = "product-details-page.html";
-seeDetailsButton.textContent = "See Details";
-seeDetailsButton.className = "btn btn-primary";
+  const seeDetailsButton = document.createElement("a");
+  seeDetailsButton.href = "product-details-page.html";
+  seeDetailsButton.textContent = "See Details";
+  seeDetailsButton.className = "btn btn-primary";
 
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSubtitle);
@@ -80,9 +79,16 @@ seeDetailsButton.className = "btn btn-primary";
   productsList.appendChild(cardContainer);
 }
 
-function filterProducts() {
+async function filterProducts() {
   let selectedCategoryId = categorySelect.value;
-
+  let products = await getProducts();
   let filteredProducts = products.filter((product) => product.categoryId == selectedCategoryId);
-  return filteredProducts;
+  displayCards(filteredProducts);
 }
+
+async function initializePage() {
+  getCategories();
+  let products = await getProducts();
+  displayCards(products);
+}
+initializePage();
