@@ -60,13 +60,21 @@ function createProductCard(product) {
 
   const cardSubtitle = document.createElement("h6");
   cardSubtitle.className = "card-subtitle mb-2 text-body-secondary";
+  cardSubtitle.textContent = "Product ID: " + product.productId + ", Price: $" + product.unitPrice;
 
   const cardText = document.createElement("p");
   cardText.className = "card-text";
+  cardText.textContent = product.supplier;
+
+const seeDetailsButton = document.createElement("a");
+seeDetailsButton.href = "product-details-page.html";
+seeDetailsButton.textContent = "See Details";
+seeDetailsButton.className = "btn btn-primary";
 
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSubtitle);
   cardBody.appendChild(cardText);
+  cardBody.appendChild(seeDetailsButton);
   cardContainer.appendChild(cardBody);
 
   productsList.appendChild(cardContainer);
