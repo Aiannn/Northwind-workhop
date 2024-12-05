@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 let url = "http://localhost:8081/api/categories";
 
@@ -61,10 +61,8 @@ function createProductCard(product) {
   const cardSubtitle = document.createElement("h6");
   cardSubtitle.className = "card-subtitle mb-2 text-body-secondary";
 
-
   const cardText = document.createElement("p");
   cardText.className = "card-text";
-
 
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSubtitle);
@@ -75,9 +73,9 @@ function createProductCard(product) {
 }
 
 function filterProducts() {
-    let categoryId = categorySelect.values
+  let categoryId = categorySelect.values;
 
-    let filterProducts = products.filter((product) =>  product.categoryId == categoryId)
-    return filterProducts;
+  let filterProducts = products.filter((product) => product.categoryId === categoryId);
+  return filterProducts;
 }
-filterProducts()
+filterProducts();
