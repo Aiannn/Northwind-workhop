@@ -16,7 +16,6 @@ async function getCategories() {
     console.log("error", error.message);
   }
 }
-getCategories();
 
 function populateCategorySelect(categories) {
   for (const category of categories) {
@@ -33,14 +32,15 @@ async function getProducts() {
     let response = await fetch(url);
     let products = await response.json();
     console.log("products", products);
-    displayCards(products);
+    return products;
   } catch (error) {
     console.log("error", error.message);
   }
 }
-getProducts();
+
 
 function displayCards(products) {
+  productsList.innerHTML = "";
   for (const product of products) {
     createProductCard(product);
   }
@@ -48,6 +48,8 @@ function displayCards(products) {
 
 function createProductCard(product) {
   const cardContainer = document.createElement("div");
+
+
   cardContainer.className = "card";
   cardContainer.style.width = "18rem";
 
@@ -60,22 +62,46 @@ function createProductCard(product) {
 
   const cardSubtitle = document.createElement("h6");
   cardSubtitle.className = "card-subtitle mb-2 text-body-secondary";
+  cardSubtitle.textContent = "Product ID: " + product.productId + ", Price: $" + product.unitPrice;
 
   const cardText = document.createElement("p");
   cardText.className = "card-text";
+  cardText.textContent = product.supplier;
+
+  const seeDetailsButton = document.createElement("a");
+  seeDetailsButton.href = `http://127.0.0.1:5500/product-details-page.html?productId=${product.productId}`;
+  seeDetailsButton.textContent = "See Details";
+  seeDetailsButton.className = "btn btn-primary";
 
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardSubtitle);
   cardBody.appendChild(cardText);
+  cardBody.appendChild(seeDetailsButton);
   cardContainer.appendChild(cardBody);
 
   productsList.appendChild(cardContainer);
 }
 
-function filterProducts() {
-  let categoryId = categorySelect.values;
-
-  let filterProducts = products.filter((product) => product.categoryId === categoryId);
-  return filterProducts;
+async function filterProducts() {
+  let selectedCategoryId = categorySelect.value;
+  let products = await getProducts();
+  let filteredProducts = products.filter((product) => product.categoryId == selectedCategoryId);
+  displayCards(filteredProducts);
 }
-filterProducts();
+
+async function initializePage() {
+  getCategories();
+}
+initializePage();
+
+//in case its not working , change onclick function in HTML
+async function selectHandler() {
+    if (shopByTypeSelect.value === 'all') {
+        let products = await getProducts()
+        displayCards(products)
+    } else if (shopByTypeSelect.value === 'category') {
+        filterProducts()
+    } else {
+        null
+    }
+}
