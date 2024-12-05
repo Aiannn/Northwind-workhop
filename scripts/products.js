@@ -81,9 +81,8 @@ seeDetailsButton.className = "btn btn-primary";
 }
 
 function filterProducts() {
-  let categoryId = categorySelect.values;
+  let selectedCategoryId = categorySelect.value;
 
-  let filterProducts = products.filter((product) => product.categoryId === categoryId);
-  return filterProducts;
+  let filteredProducts = products.filter((product) => product.categoryId == selectedCategoryId);
+  return filteredProducts;
 }
-filterProducts();
