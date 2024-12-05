@@ -6,6 +6,7 @@ let shopByTypeSelect = document.querySelector("#shopByTypeSelect");
 let categorySelect = document.querySelector("#categorySelect");
 let productsList = document.querySelector("#productsList");
 
+
 async function getCategories() {
   try {
     let response = await fetch(url);
@@ -73,9 +74,15 @@ function createProductCard(product) {
 }
 
 function filterProducts() {
-  let categoryId = categorySelect.values;
+  let categoryId = categorySelect.value;
+if (categoryId) {
 
-  let filterProducts = products.filter((product) => product.categoryId === categoryId);
-  return filterProducts;
+
+  let filteredProducts = products.filter((product) => product.categoryId === categoryId);
+  displayCards (filteredProducts);
+} else {
+  displayCards(products);
+}
 }
 filterProducts();
+
