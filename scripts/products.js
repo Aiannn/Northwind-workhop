@@ -38,6 +38,7 @@ async function getProducts() {
   }
 }
 
+
 function displayCards(products) {
   productsList.innerHTML = "";
   for (const product of products) {
@@ -47,6 +48,8 @@ function displayCards(products) {
 
 function createProductCard(product) {
   const cardContainer = document.createElement("div");
+
+
   cardContainer.className = "card";
   cardContainer.style.width = "18rem";
 
@@ -66,7 +69,7 @@ function createProductCard(product) {
   cardText.textContent = product.supplier;
 
   const seeDetailsButton = document.createElement("a");
-  seeDetailsButton.href = "product-details-page.html";
+  seeDetailsButton.href = `http://127.0.0.1:5500/product-details-page.html?productId=${product.productId}`;
   seeDetailsButton.textContent = "See Details";
   seeDetailsButton.className = "btn btn-primary";
 
@@ -88,7 +91,17 @@ async function filterProducts() {
 
 async function initializePage() {
   getCategories();
-  let products = await getProducts();
-  displayCards(products);
 }
 initializePage();
+
+//in case its not working , change onclick function in HTML
+async function selectHandler() {
+    if (shopByTypeSelect.value === 'all') {
+        let products = await getProducts()
+        displayCards(products)
+    } else if (shopByTypeSelect.value === 'category') {
+        filterProducts()
+    } else {
+        null
+    }
+}
